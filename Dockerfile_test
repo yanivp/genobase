@@ -1,0 +1,7 @@
+FROM python:3.6
+ENV PYTHONUNBUFFERED 1
+WORKDIR /
+ADD . /
+RUN apt-get -q update && apt-get -qy install netcat
+RUN pip install -r requirements.txt
+RUN ["chmod", "+x", "/wait-for"]

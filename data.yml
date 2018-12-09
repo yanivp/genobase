@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  s3:
+    image: minio/minio
+    volumes:
+      - ./data/minimo:/data
+    ports:
+       - "9000:9000"
+    environment:
+       MINIO_ACCESS_KEY: ${S3_ACCESS_KEY}
+       MINIO_SECRET_KEY: ${S3_SECRET_KEY}
+    command: server /data
+    restart: always
+    networks:
+      - genobase_default
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${PSQL_USER}
+      - POSTGRES_PASSWORD=${PSQL_PWD}
+      - POSTGRES_DB=${PSQL_DB}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - genobase_default
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:latest
+    environment:
+        - RABBITMQ_DEFAULT_USER=${RMQ_USER}
+        - RABBITMQ_DEFAULT_PASS=${RMQ_PWD}
+    ports:
+      - "5673:5672"
+    restart: always
+    networks:
+      - genobase_default
+
+networks:
+  genobase_default:
+    driver: bridge

@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+    command: python3 manage.py runserver 0.0.0.0:8000 --verbosity 3
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - IS_DOCKER=true
+    restart: always
+    networks:
+      - genobase_default
+  worker:
+    build:
+      context: .
+    command: celery -A genobase worker --concurrency=20 --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - IS_DOCKER=true
+    restart: always
+    networks:
+      - genobase_default
+  migration:
+    build:
+      context: .
+    command: python3 manage.py migrate
+    volumes:
+      - .:/code
+    environment:
+      - IS_DOCKER=true
+    restart: on-failure
+    networks:
+      - genobase_default
+
+networks:
+  genobase_default:
+    driver: bridge
