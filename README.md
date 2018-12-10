@@ -13,7 +13,7 @@ These instructions assume you have (and know how to work) `python3.6`, `Docker`
 ##### General architecture (and process)
 1. `Client` `POST` a `GeneParser` object to `API Server`.
    1. `API Server` contacts `S3` and retrieves a presigned URL for upload.
-   1. `API Server` stores is in the `GeneParser` object and returns to cleint.
+   1. `API Server` stores it in the `GeneParser` object and returns to client.
 1. `Client` `PUT` a file in the `S3` presigned URL.
 1. `Client` `POST` to `API Server` that the file was uploaded.
 1. `API Server` creates `AsyncJob` and puts a task in the `RabbitMQ`.
