@@ -36,6 +36,7 @@ These instructions assume you have (and know how to work) `python3.6`, `Docker`
 1. `docker-compose -f processors.yml up`
    1. This will bring up the `API server`, `Celery workers` and a `schema migrations server`.  
 1. Create terminal and navigate to project folder.
+   1. `pip install requests`: Needed for the test script
    1. Run the test script: `python tests/test_full_flow.py`
    1. Navigate to `./downloads/` and see the results.
 

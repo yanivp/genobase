@@ -3,7 +3,6 @@ boto3==1.9.61
 djangorestframework==3.9.0
 celery==4.2.1
 psycopg2-binary==2.7.6.1
-redis==3.0.1
 python-dotenv==0.10.0
 minio==4.0.8
 requests==2.20.1

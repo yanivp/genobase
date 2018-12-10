@@ -2,13 +2,12 @@ supported_file_types = ['fasta', 'csv']
 
 
 class ParsedResult:
-    def __init__(self, line, name, sequence):
-        self.line = line
+    def __init__(self, name, sequence):
         self.name = name
         self.sequence = sequence
 
     def __str__(self):
-        return '{}:{}:{}'.format(self.line, self.name, self.sequence)
+        return '{}:{}'.format(self.name, self.sequence)
 
 
 class ParserBuffer:
@@ -39,7 +38,6 @@ class ParserBuffer:
 
                 parsed_results.append(
                     ParsedResult(
-                        line=0,
                         name=part[:part.find('\n')].replace('\n', ''),
                         sequence=part[part.find('\n'):].replace('\n', '')
                     )
@@ -69,7 +67,6 @@ class ParserBuffer:
                 if not first_result:
                     parsed_results.append(
                         ParsedResult(
-                            line=0,
                             name=part[:part.find(',')].replace('\r', ''),
                             sequence=part[part.find(',') + 1:].replace('\r', '')
                         )
