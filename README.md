@@ -1,4 +1,6 @@
 # Genobase
+A DNA file parser service (WIP)
+
 These instructions assume you have (and know how to work) `python3.6`, `Docker`
 
 ##### Technologies
